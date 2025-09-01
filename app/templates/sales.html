@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-3"><i class="fa-solid fa-receipt me-2"></i>{{ title }}</h2>
+<div class="table-responsive card card-glass">
+  <table class="table align-middle table-hover mb-0">
+    <thead class="table-dark">
+      <tr><th>#</th><th>Date</th><th>Vendeur</th><th>Client</th><th>Produit</th><th>Qté</th><th>Total</th></tr>
+    </thead>
+    <tbody>
+      {% for s in sales %}
+      <tr>
+        <td>{{ s.id }}</td>
+        <td>{{ s.created_at.strftime('%d/%m/%Y %H:%M') }}</td>
+        <td>{{ s.seller.username }}</td>
+        <td>{{ s.client.name }}</td>
+        <td>{{ s.product.name }}</td>
+        <td>{{ s.quantity }}</td>
+        <td>{{ '%.2f'|format(s.total) }} f</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

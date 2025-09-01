@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4"><i class="fa-solid fa-chart-line me-2"></i>Tableau de bord</h2>
+<div class="row g-3">
+  <div class="col-md-3"><div class="card card-kpi"><div class="card-body"><div class="d-flex justify-content-between align-items-center"><span class="text-secondary">Produits</span><i class="fa-solid fa-boxes-stacked"></i></div><div class="display-6">{{ products_count }}</div></div></div></div>
+  <div class="col-md-3"><div class="card card-kpi"><div class="card-body"><div class="d-flex justify-content-between align-items-center"><span class="text-secondary">Clients</span><i class="fa-solid fa-users"></i></div><div class="display-6">{{ clients_count }}</div></div></div></div>
+  <div class="col-md-3"><div class="card card-kpi"><div class="card-body"><div class="d-flex justify-content-between align-items-center"><span class="text-secondary">Ventes</span><i class="fa-solid fa-receipt"></i></div><div class="display-6">{{ sales_count }}</div></div></div></div>
+  <div class="col-md-3"><div class="card card-kpi"><div class="card-body"><div class="d-flex justify-content-between align-items-center"><span class="text-secondary">Chiffre d'affaires</span><i class="fa-solid fa-sack-dollar"></i></div><div class="display-6">{{ '%.2f'|format(revenue) }} f</div></div></div></div>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2><i class="fa-solid fa-boxes-stacked me-2"></i>Produits</h2>
+  <a href="{{ url_for('routes.create_product') }}" class="btn btn-success glow"><i class="fa-solid fa-plus"></i> Ajouter</a>
+</div>
+<form class="row g-2 mb-3">
+  <div class="col-auto"><input type="text" class="form-control" name="q" placeholder="Rechercher..." value="{{ q }}"></div>
+  <div class="col-auto"><button class="btn btn-outline-light">OK</button></div>
+</form>
+<div class="row g-3">
+  {% for p in items %}
+  <div class="col-md-4 col-lg-3">
+    <div class="card h-100 card-glow">
+      <img src="{{ url_for('static', filename='uploads/' ~ (p.image_filename or 'placeholder_product.png')) }}" class="card-img-top product-img" alt="image produit">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ p.name }}</h5>
+        <p class="text-secondary small flex-grow-1">{{ p.description or "" }}</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="badge text-bg-primary">{{ '%.2f'|format(p.price) }} f</span>
+          <span class="badge text-bg-secondary">Stock: {{ p.stock }}</span>
+        </div>
+        <div class="mt-3 d-flex gap-2">
+          <a href="{{ url_for('routes.edit_product', pid=p.id) }}" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-pen"></i></a>
+          <form method="post" action="{{ url_for('routes.delete_product', pid=p.id) }}" onsubmit="return confirm('Supprimer ?')">
+            <button class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

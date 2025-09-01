@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title or "ShopApp" }}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/theme.css') }}" rel="stylesheet">
+</head>
+<body class="bg-gradient-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-black bg-opacity-50 border-bottom border-secondary sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('routes.home') }}">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo" width="32" height="32" class="rounded-circle">
+      <span class="fw-bold neon">KEWYShop</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        {% if current_user.is_authenticated %}
+          {% if current_user.role == 'admin' %}
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('routes.dashboard') }}"><i class="fa-solid fa-chart-line me-1"></i> Tableau de bord</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('routes.products') }}"><i class="fa-solid fa-boxes-stacked me-1"></i> Produits</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('routes.clients') }}"><i class="fa-solid fa-users me-1"></i> Clients</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('routes.my_sales') }}"><i class="fa-solid fa-receipt me-1"></i> Ventes</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('routes.sell') }}"><i class="fa-solid fa-cash-register me-1"></i> Vendre</a></li>
+          {% else %}
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('routes.sell') }}"><i class="fa-solid fa-cash-register me-1"></i> Vendre</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('routes.my_sales') }}"><i class="fa-solid fa-receipt me-1"></i> Mes ventes</a></li>
+          {% endif %}
+        {% endif %}
+      </ul>
+      <ul class="navbar-nav">
+        {% if current_user.is_authenticated %}
+          <li class="nav-item"><span class="navbar-text small me-3 text-secondary">Connecté : <span class="text-light">{{ current_user.username }}</span> ({{ current_user.role }})</span></li>
+          <li class="nav-item"><a class="btn btn-outline-light btn-sm glow" href="{{ url_for('routes.logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container py-4">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="toast-container position-fixed top-0 end-0 p-3">
+        {% for category, message in messages %}
+          <div class="toast show align-items-center text-bg-dark border-0 mb-2">
+            <div class="d-flex">
+              <div class="toast-body">{{ message }}</div>
+              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="text-center text-secondary py-4 small">
+  <img src="{{ url_for('static', filename='images/logo.png') }}" width="20" class="me-1">
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-3"><i class="fa-solid fa-cash-register me-2"></i>Nouvelle vente</h2>
+<form method="post" class="card card-glass p-3">
+  <div class="row g-3">
+    <div class="col-md-4">
+      <label class="form-label">Produit</label>
+      <select name="product_id" class="form-select glow-input" required>
+        {% for p in products %}
+          <option value="{{ p.id }}">{{ p.name }} — {{ '%.2f'|format(p.price) }} f (Stock {{ p.stock }})</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Quantité</label>
+      <input type="number" name="quantity" class="form-control glow-input" value="1" min="1" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Client</label>
+      <select name="client_id" class="form-select glow-input" id="clientSelect" onchange="toggleNewClient(this.value)">
+        <option value="" selected>Choisir un client...</option>
+        {% for c in clients %}
+          <option value="{{ c.id }}">{{ c.name }} ({{ c.phone or c.email or '-' }})</option>
+        {% endfor %}
+        <option value="new">+ Nouveau client</option>
+      </select>
+    </div>
+    <div id="newClientFields" class="col-12 d-none">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Nom (nouveau)</label>
+          <input name="new_client_name" class="form-control glow-input">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Email</label>
+          <input name="new_client_email" class="form-control glow-input">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Téléphone</label>
+          <input name="new_client_phone" class="form-control glow-input">
+        </div>
+        <div class="col-12">
+          <label class="form-label">Adresse</label>
+          <input name="new_client_address" class="form-control glow-input">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-3">
+    <button class="btn btn-primary glow">
+      <i class="fa-solid fa-cart-shopping me-1"></i> Enregistrer la vente
+    </button>
+  </div>
+</form>
+
+<script>
+  function toggleNewClient(value) {
+    let newClientFields = document.getElementById("newClientFields");
+    if (value === "new") {
+      newClientFields.classList.remove("d-none");
+    } else {
+      newClientFields.classList.add("d-none");
+    }
+  }
+</script>
+{% endblock %}

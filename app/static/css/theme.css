@@ -1,0 +1,14 @@
+/* Dark fun neon theme */
+:root{ --neon:#8b5cf6; --neon2:#22d3ee; --bg:#0b0c10; --card:#111318b3; }
+body.bg-gradient-dark{ min-height:100vh; background:
+  radial-gradient(1200px 600px at 10% -10%, rgba(139,92,246,.15), transparent 60%),
+  radial-gradient(900px 500px at 100% 0%, rgba(34,211,238,.1), transparent 60%),
+  linear-gradient(180deg, #0b0c10 0%, #0a0b0f 100%); color:#eaeaea; }
+.neon{ color: var(--neon); text-shadow: 0 0 8px rgba(139,92,246,.6); }
+.glow{ box-shadow: 0 0 16px rgba(139,92,246,.35); }
+.card-glow{ box-shadow: 0 0 24px rgba(34,211,238,.18); border:1px solid rgba(255,255,255,.06); background:var(--card); backdrop-filter: blur(6px); }
+.card-kpi{ border-radius:16px; background:var(--card); border:1px solid rgba(255,255,255,.06); }
+.glow-input:focus{ box-shadow: 0 0 0 .25rem rgba(139,92,246,.25); border-color: var(--neon); }
+.product-img{ height:180px; object-fit:cover; }
+.preview-img{ height:160px; width:auto; border-radius:12px; box-shadow: 0 0 12px rgba(34,211,238,.25); }
+.navbar{ backdrop-filter: blur(10px); }

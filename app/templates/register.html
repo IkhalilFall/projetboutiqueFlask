@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-4">
+    <div class="card card-glass shadow-lg p-4">
+      <div class="text-center mb-3">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" width="64" class="rounded-circle shadow-sm mb-2">
+        <h1 class="h4 neon">Inscription</h1>
+      </div>
+      <form method="post" action="{{ url_for('routes.register') }}">
+        <div class="mb-3">
+          <label class="form-label">Nom d'utilisateur</label>
+          <input type="text" class="form-control form-control-lg glow-input" name="username" placeholder="Votre nom d'utilisateur" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control form-control-lg glow-input" name="email" placeholder="exemple@mail.com" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Mot de passe</label>
+          <input type="password" class="form-control form-control-lg glow-input" name="password" placeholder="••••••••" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Confirmer le mot de passe</label>
+          <input type="password" class="form-control form-control-lg glow-input" name="confirm_password" placeholder="••••••••" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Rôle</label>
+          <select name="role" class="form-select form-select-lg glow-input" required>
+            <option value="vendeur" selected>Vendeur</option>
+            <option value="admin">Administrateur</option>
+          </select>
+        </div>
+        <button class="btn btn-success w-100 btn-lg glow" type="submit">
+          <i class="fa-solid fa-user-plus me-1"></i> S'inscrire
+        </button>
+      </form>
+      <div class="text-center mt-3">
+        <small>Déjà un compte ? <a href="{{ url_for('routes.login') }}" class="text-decoration-none">Se connecter</a></small>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
